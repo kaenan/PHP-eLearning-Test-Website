@@ -1,0 +1,215 @@
+body {
+    background-color: #a7dfff;
+}
+
+.container {
+    display: flex;
+}
+
+.admin-buttons {
+    display: flex;
+    width: fit-content;
+    height: 100%;
+    margin-top: 10px;
+    margin-left: .5%;
+    margin-right: .5%;
+}
+
+.admin-buttons button {
+    margin: auto;
+    padding: 0 1em 0 1em;
+    height: 2em;
+    width: 12em;
+
+    border-radius: 15px;
+    border-color: transparent;
+    background-color: white;
+    cursor: pointer;
+
+    font-size: large;
+}
+
+.popup-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
+}
+
+.popup-form-container {
+    max-width: 30em;
+
+    background-color: white;
+    border-radius: 15px;
+
+    display: grid;
+
+    justify-content: center;
+
+    padding: 25px;
+}
+
+.popup-form-container label {
+    font-size: x-large;
+}
+
+.popup-form-container input[type=file]{
+    margin-top:10px;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+}
+
+.popup-buttons .popup-button {
+    margin: 0 20px 0 20px;
+    width: 200px;
+    height: 30px;
+
+    border-radius: 15px;
+    border-color: transparent;
+    background-color: rgb(100, 100, 100);
+
+    font-size: medium;
+    font-weight: bold;
+    color: white;
+}
+
+#remove-button {
+    background-color: red;
+}
+
+.show-tables {
+    display: flex;
+
+    margin-top: 10px;
+    margin-left: 12%;
+
+    justify-content: center;
+    width: fit-content;
+    padding: 20px;
+    background-color: white;
+    border-radius: 20px;
+}
+.show-tables table {
+    width: fit-content;
+    margin-bottom: 30px;
+}
+
+.show-tables table td {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.id-column {
+    width: 150px;
+    text-align: left;
+}
+
+.contents-column {
+    width: 500px;
+    text-align: center;
+}
+
+.edit-column {
+    width: 40px;
+}
+
+.remove-column {
+    width: 67px;
+}
+
+.change-form {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.change-form label {
+    width: 150px;
+}
+
+.change-form input[type=text] {
+    width: 100%;
+    max-width: 500px;
+    max-height: 15px;
+    margin-right: 5px;
+    align-self: center;
+}
+
+.change-form input[type=submit]{
+    max-height: 25px;
+    align-self: center;
+}
+
+.add-container {
+    display: flex;
+
+    margin-top: 10px;
+    margin-left: 22%;
+}
+
+.add-sub-container {
+    width: fit-content;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.add-sub-container form {
+    display: grid;
+}
+
+.add-sub-container form label {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.add-sub-container form textarea {
+    width: 500px;
+    height: 100px;
+    resize: none;
+    margin-bottom: 20px;
+}
+
+.add-sub-container form input[type=submit] {
+    width: 30%;
+    justify-self: end;
+    background-color: #a7dfff;
+    border-radius: 15px;
+    border-color: transparent;
+
+    font-size: medium;
+    font-weight: bold;
+    color: white;
+
+    cursor: pointer;
+}
+
+.add-sub-container button {
+    margin-bottom: 20px;
+    width: 20%;
+
+    background-color: #ff4545;
+    border-radius: 15px;
+    border-color: transparent;
+
+    font-size: medium;
+    font-weight: bold;
+    color: white;
+
+    cursor: pointer;
+}
