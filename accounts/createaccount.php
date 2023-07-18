@@ -28,6 +28,5 @@
     }
     finally{
         mysqli_close($conn);
-        exit();
     }
 ?>

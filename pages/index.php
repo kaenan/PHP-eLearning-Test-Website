@@ -17,7 +17,7 @@
 
     <div class="credentials-container">
         
-        <div class="credentials-input" id="create">
+        <div class="credentials-input" id="create" style="display: none;">
             <label class="title">Create an account</label>
             <form action="../accounts/createaccount.php" method="post">
                 <label>Username:</label>
@@ -35,7 +35,7 @@
             <label class="help-text">Already have an account? <button onclick="show('block', 'none')">Click Here</button> to login.</label>
         </div>
 
-        <div class="credentials-input" id="login" style="display: none;">
+        <div class="credentials-input" id="login">
             <label class="title">Login</label>
             <form action="../accounts/login.php" method="post">
             <label>Username:</label>

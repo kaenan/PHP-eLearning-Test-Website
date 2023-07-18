@@ -6,7 +6,7 @@
         {
             $new_challenge = $_POST['challenge'];
             $new_challenge = htmlentities($new_challenge);
-            $queries = array("INSERT INTO `challenges` (name) VALUES('$new_challenge')");
+            $queries = array("INSERT INTO `challenges` (name, imagePath) VALUES('$new_challenge', '../challenge images/placeholder.jpg')");
         }
         else if ($_POST['action'] == "REMOVE")
         {

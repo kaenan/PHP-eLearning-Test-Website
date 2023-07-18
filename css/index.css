@@ -5,7 +5,7 @@ body {
 .credentials-container {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 3%;
+    margin-top: 50px;
 
     justify-content: center;
     display: block;
@@ -42,9 +42,13 @@ body {
 
 .credentials-input input {
     height: 25px;
-    padding: 0;
-    font-size: .8em;
+    padding: 0 10px 0 10px;
     font-size: medium;
+
+    border-radius: 10px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
 }
 
 .credentials-input div input {

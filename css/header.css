@@ -18,6 +18,8 @@ body {
     color: white;
     font-weight: bold;
 
+    min-width: 458px;
+
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 2%;

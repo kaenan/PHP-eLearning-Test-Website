@@ -34,4 +34,7 @@
     {
         echo "Could not connect.";
     }
+    finally {
+        mysqli_close($conn);
+    }
 ?>
