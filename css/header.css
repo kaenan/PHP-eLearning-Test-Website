@@ -28,17 +28,26 @@ body {
 
 .buttons-container {
     display: flex;
-
-    margin-top: auto;
-    margin-bottom: auto;
     margin-left: auto;
+}
+
+.buttons-container div {
+    display: flex;
+    height: 98%;
+
+    border-bottom: none;
+    transition: all .2s;
+}
+
+.buttons-container div:hover{
+    border-bottom: 2px solid white;
 }
 
 .nav-button {
     background-color: transparent;
     border-color: transparent;
 
-    padding-right: 2em;
+    padding: 0 1em 0 1em;
 
     height: auto;
 

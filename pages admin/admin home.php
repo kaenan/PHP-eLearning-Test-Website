@@ -1,70 +1,61 @@
-<?php 
-    include("../database.php");
-    include("../challenges/challenges.php");
+<?php
+include("../database.php");
+include("../challenges/challenges.php");
 
-    if ($_SESSION['admin'] != 1){
-        header("Location:../pages/index.php");
-        exit();
-    }
+if ($_SESSION['admin'] != 1) {
+    header("Location:../pages/index.php");
+    exit();
+}
 
-    if (array_key_exists('challenge', $_POST)){
-        $challenge_id = $_POST['challenge'];
-        $challenge_name = $_POST['challengeName'];
-    }
-    else
-    {
-        $challenge_id = null;
-        $challenge_name = null;
-    }
+if (array_key_exists('challenge', $_POST)) {
+    $challenge_id = $_POST['challenge'];
+    $challenge_name = $_POST['challengeName'];
+} else {
+    $challenge_id = null;
+    $challenge_name = null;
+}
 
-    if (array_key_exists('question', $_POST)){
-        $question_id = $_POST['question'];
-        $question_name = $_POST['questionName'];
-    }
-    else
-    {
-        $question_id = null;
-        $question_name = null;
-    }
+if (array_key_exists('question', $_POST)) {
+    $question_id = $_POST['question'];
+    $question_name = $_POST['questionName'];
+} else {
+    $question_id = null;
+    $question_name = null;
+}
 
-    if (array_key_exists('answer', $_POST)){
-        $answer_id = $_POST['answer'];
-        $answer_name = $_POST['answerName'];
-    }
-    else
-    {
-        $answer_id = null;
-        $answer_name = null;
-    }
+if (array_key_exists('answer', $_POST)) {
+    $answer_id = $_POST['answer'];
+    $answer_name = $_POST['answerName'];
+} else {
+    $answer_id = null;
+    $answer_name = null;
+}
 
-    if (array_key_exists('fakeanswer', $_POST)){
-        $fake_answer_id = $_POST['fakeanswer'];
-        $fake_answer_name = $_POST['fakeanswerName'];
-    }
-    else
-    {
-        $fake_answer_id = null;
-        $fake_answer_name = null;
-    }
+if (array_key_exists('fakeanswer', $_POST)) {
+    $fake_answer_id = $_POST['fakeanswer'];
+    $fake_answer_name = $_POST['fakeanswerName'];
+} else {
+    $fake_answer_id = null;
+    $fake_answer_name = null;
+}
 
-    try 
-    {
-        $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_name);
-    } 
-    catch (mysqli_sql_exception)
-    {
-        echo "Could not connect.";
-    }
+try {
+    $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_name);
+} catch (mysqli_sql_exception) {
+    echo "Could not connect.";
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/admin.css">
     <title>Document</title>
 </head>
+
 <body>
     <div class="popup-container" id="popup-container" style="display: none;">
         <div class="popup">
@@ -134,7 +125,14 @@
 
         <div class="show-tables" id="show-tables">
             <div>
-                <table>
+                <div>
+                    <input type="text" id="search-filter" onkeyup="searchFilter()" placeholder="Search challenge table...">
+                    <select name="filters" id="dropdown-filter">
+                        <option value="0">ID</option>
+                        <option value="1">Name</option>
+                    </select>
+                </div>
+                <table id="challenges-table">
                     <tr>
                         <th class="id-column">Challenge ID</th>
                         <th class="contents-column">Name</th>
@@ -146,7 +144,7 @@
                     <?php while ($row = mysqli_fetch_array($challenges)) {
                         $c_id = $row['id'];
                         $c_name = $row['name']; ?>
-                            <tr>
+                        <tr>
                             <td><?php echo $c_id ?></td>
                             <td><?php echo $c_name ?></td>
                             <td>
@@ -165,7 +163,7 @@
                             <td>
                                 <button onclick="addChallengeImage(<?php echo $c_id; ?>)">Upload image</button>
                             </td>
-                            </tr>
+                        </tr>
                     <?php } ?>
                 </table>
 
@@ -176,7 +174,7 @@
                     <!-- Change challenge name -->
                     <form action="../admin/updatetables.php" method="post" class="change-form">
                         <label>Challenge Name: </label>
-                        <input type="text" name="challengeId" <?php echo "value=\"$challenge_id\"" ?> style="display: none;" >
+                        <input type="text" name="challengeId" <?php echo "value=\"$challenge_id\"" ?> style="display: none;">
                         <input type="text" name="challengeTitle" <?php echo "value=\"$challenge_name\"" ?> required>
                         <input type="submit" value="Change">
                     </form>
@@ -190,7 +188,7 @@
                             <th class="other-column"></th>
                             <th class="other-column"></th>
                         </tr>
-                        <?php while ($row = mysqli_fetch_array($questions)){
+                        <?php while ($row = mysqli_fetch_array($questions)) {
                             $q_id = $row['id'];
                             $q = $row['question']; ?>
                             <tr>
@@ -244,7 +242,7 @@
                             <th class="other-column"></th>
                             <th class="other-column"></th>
                         </tr>
-                        <?php while ($row = mysqli_fetch_array($answers)){
+                        <?php while ($row = mysqli_fetch_array($answers)) {
                             $a_id = $row['id'];
                             $a = $row['answer']; ?>
                             <tr>
@@ -279,7 +277,7 @@
                             <th class="other-column"></th>
                             <th class="other-column"></th>
                         </tr>
-                        <?php while ($row = mysqli_fetch_array($fakeanswers)){
+                        <?php while ($row = mysqli_fetch_array($fakeanswers)) {
                             $fa_id = $row['id'];
                             $fa = $row['fakeanswers']; ?>
                             <tr>
@@ -334,12 +332,12 @@
                 <div>
                     <button onclick="backButton('show-tables', 'add-challenge')">Back</button>
                 </div>
-                    <form action="../admin/admin add challenge.php" method="post">
-                        <label>New Challenge: </label>
-                        <textarea rows="10" cols="30" name="challenge" required></textarea>
-                        <input type="submit" value="Create">
-                        <input type="text" value="ADD" style="display: none;" name="action">
-                    </form>
+                <form action="../admin/admin add challenge.php" method="post">
+                    <label>New Challenge: </label>
+                    <textarea rows="10" cols="30" name="challenge" required></textarea>
+                    <input type="submit" value="Create">
+                    <input type="text" value="ADD" style="display: none;" name="action">
+                </form>
             </div>
 
             <!-- Add new question section -->
@@ -347,13 +345,13 @@
                 <div>
                     <button onclick="backButton('show-tables', 'add-question')">Back</button>
                 </div>
-                    <form action="../admin/admin add question.php" method="post">
-                        <label>New Question: </label>
-                        <textarea rows="10" cols="30" name="question" required></textarea>
-                        <input type="submit" value="Add">
-                        <input type="text" id="q-challengeId" name="challengeId" style="display: none;">
-                        <input type="text" value="ADD" style="display: none;" name="action">
-                    </form>
+                <form action="../admin/admin add question.php" method="post">
+                    <label>New Question: </label>
+                    <textarea rows="10" cols="30" name="question" required></textarea>
+                    <input type="submit" value="Add">
+                    <input type="text" id="q-challengeId" name="challengeId" style="display: none;">
+                    <input type="text" value="ADD" style="display: none;" name="action">
+                </form>
             </div>
 
             <!-- Add new answer section -->
@@ -361,15 +359,15 @@
                 <div>
                     <button onclick="backButton('show-tables', 'add-answer')">Back</button>
                 </div>
-                    <form action="../admin/admin add answer.php" method="post">
-                        <label>New Answer: </label>
-                        <textarea rows="10" cols="30" name="answer" required></textarea>
-                        <input type="submit" value="Add">
-                        <input type="text" id="a-challengeId" name="challengeId" style="display: none;">
-                        <input type="text" id="a-questionId" name="questionId" style="display: none;">
-                        <input type="text" value="ADD" style="display: none;" name="action">
-                        <input type="text" style="display: none;" id="answerType" name="answerType">
-                    </form>
+                <form action="../admin/admin add answer.php" method="post">
+                    <label>New Answer: </label>
+                    <textarea rows="10" cols="30" name="answer" required></textarea>
+                    <input type="submit" value="Add">
+                    <input type="text" id="a-challengeId" name="challengeId" style="display: none;">
+                    <input type="text" id="a-questionId" name="questionId" style="display: none;">
+                    <input type="text" value="ADD" style="display: none;" name="action">
+                    <input type="text" style="display: none;" id="answerType" name="answerType">
+                </form>
             </div>
         </div>
     </div>
@@ -377,7 +375,7 @@
 </body>
 
 <script>
-    function addChallenge(){
+    function addChallenge() {
         document.getElementById("show-tables").style.display = "none";
         document.getElementById("add-challenge").style.display = "block";
 
@@ -385,13 +383,13 @@
         document.getElementById("add-answer").style.display = "none";
     }
 
-    function addQuestion(challengeId){
+    function addQuestion(challengeId) {
         document.getElementById("show-tables").style.display = "none";
         document.getElementById("add-question").style.display = "block";
         document.getElementById("q-challengeId").value = challengeId;
     }
 
-    function addAnswer(challengeId, questionId, type){
+    function addAnswer(challengeId, questionId, type) {
         document.getElementById("show-tables").style.display = "none";
         document.getElementById("add-answer").style.display = "block";
         document.getElementById("a-challengeId").value = challengeId;
@@ -399,12 +397,12 @@
         document.getElementById("answerType").value = type;
     }
 
-    function backButton(backTo, current){
+    function backButton(backTo, current) {
         document.getElementById(current).style.display = "none";
         document.getElementById(backTo).style.display = "block";
     }
 
-    function closePopup(){
+    function closePopup() {
         document.getElementById("popup-container").style.display = "none";
         document.getElementById("challenge-remove-form").style.display = "none";
         document.getElementById("question-remove-form").style.display = "none";
@@ -413,18 +411,18 @@
         document.getElementById("challenge-upload-image").style.display = "none";
     }
 
-    function openPopup(){
+    function openPopup() {
         document.getElementById("popup-container").style.display = "block";
     }
 
-    function removeChallenge(id){
+    function removeChallenge(id) {
         openPopup();
 
         document.getElementById("challenge-remove-form").style.display = "block";
         document.getElementById("remove-c-challengeId").value = id;
     }
 
-    function removeQuestion(cId, qId){
+    function removeQuestion(cId, qId) {
         openPopup();
 
         document.getElementById("question-remove-form").style.display = "block";
@@ -432,25 +430,53 @@
         document.getElementById("remove-q-questionId").value = qId;
     }
 
-    function removeAnswer(aId){
+    function removeAnswer(aId) {
         openPopup();
 
         document.getElementById("answer-remove-form").style.display = "block";
         document.getElementById("remove-a-answerId").value = aId;
     }
 
-    function removeFakeAnswer(aId){
+    function removeFakeAnswer(aId) {
         openPopup();
 
         document.getElementById("fakeanswer-remove-form").style.display = "block";
         document.getElementById("remove-fa-answerId").value = aId;
     }
 
-    function addChallengeImage(cId){
+    function addChallengeImage(cId) {
         openPopup();
         document.getElementById("challenge-upload-image").style.display = "block";
         document.getElementById("upload-challengeId").value = cId;
     }
 
+    function searchFilter(){
+        var input, dropdown, table, tr, textVal;
+
+        input = document.getElementById("search-filter").value.toLowerCase();
+        table = document.getElementById("challenges-table");
+        tr = table.getElementsByTagName("tr");
+
+        if (input.length == 0){
+            for(i=0; i<tr.length; i++){
+                tr[i].style.display = "";
+            }
+            return;
+        }
+        dropdown = document.getElementById("dropdown-filter").value;
+
+        for(i=0; i<tr.length; i++){
+            td=tr[i].getElementsByTagName("td")[dropdown];
+            if (td) {
+                textVal = td.textContent || td.innerText;
+                if (textVal.toLowerCase().indexOf(input) > -1){
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 </script>
+
 </html>

@@ -17,10 +17,16 @@
         <label class="header-title">Kaenan Sutcliffe eLearning</label>
 
         <div class="buttons-container">
-            <button class="nav-button" onclick="homeButton()">Home</button>
-            <button class="nav-button" onclick="accountButton()">Account</button>
+            <div>
+                <button class="nav-button" onclick="homeButton()">Home</button>
+            </div>
+            <div>
+                <button class="nav-button" onclick="accountButton()">Account</button>
+            </div>
             <?php if ($_SESSION['admin'] == 1){ ?>
-                <button class="nav-button" onclick="adminPage()">Admin</button>
+                <div>
+                    <button class="nav-button" onclick="adminPage()">Admin</button>
+                </div>
             <?php } ?>
         </div>
     </div>

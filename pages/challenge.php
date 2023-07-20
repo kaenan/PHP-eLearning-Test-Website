@@ -77,6 +77,12 @@
 
     <div class="final-score-container" id="final-score-container" style="display: none;">
         <label id="score" class="score">score</label>
+
+        <div>
+            <?php for($i = 0; $i < $num_q; $i++) {
+                echo "<label id=\"$i-answer\"></label>";
+            } ?>
+        </div>
     </div>
 
     <div class="question-nav-buttons-container">
@@ -94,15 +100,23 @@
 <script>
 
     const numQuestions = <?php echo $num_q - 1?>;
+    const questions = [];
     const answers = [];
     const submittedAnswers = [];
 
     <?php
+    $questions = mysqli_query($conn, "SELECT question FROM `questions` WHERE challengeId='$challenge_id'");
+    while ($question_array = mysqli_fetch_array($questions)){
+        $i = $question_array['question'];
+        $i= html_entity_decode($i);
+        echo "questions.push(\"$i\");";
+    }
+
     $answers = mysqli_query($conn, "SELECT answer FROM `answers` WHERE challengeId='$challenge_id'");
     while ($answer_array = mysqli_fetch_array($answers)){
         $i = $answer_array['answer'];
         $i= html_entity_decode($i);
-        echo "answers.push('$i');";
+        echo "answers.push(\"$i\");";
     }
     ?>
 
@@ -119,8 +133,13 @@
 
     function checkAnswers(){
         for (i = 0; i < answers.length; i++){
+            document.getElementById((i).toString() +"-answer").innerHTML = (i+1).toString() + ". " + questions[i];
             if (answers[i] == submittedAnswers[i]){
                 correctAnswers++;
+
+                document.getElementById((i).toString()+"-answer").style.color = "green"
+            } else {
+                document.getElementById((i).toString()+"-answer").style.color = "red"
             }
         }
 
